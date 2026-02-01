@@ -1,0 +1,21 @@
+fieldset {
+  width: max-content;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+#filter-btn {
+  margin: 10px 0;
+  padding: 10px 5px;
+}
+
+.filtered-characters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profile-card {
+  border: 1px solid black;
+  padding: 10px;
+}
