@@ -14,6 +14,8 @@ class FilterApp {
   }
 
   static async FilteredData() {
+    FilterApp.allData = [];
+
     //get values from inputs
     const name = document.querySelector("#name").value;
     const gender = document.querySelector("[name=Gender]:checked");
@@ -56,16 +58,18 @@ class FilterApp {
 
     console.log(data.info.count, params.toString(), FilterApp.allData);
     const count = data.info.count;
-    return count;
+    //flatten allData to get 1 array with all characters
+    const allCharacters = FilterApp.allData.flat();
+
+    return { count, allCharacters };
   }
 
   static async renderData() {
     //empty everything when button is pressed.
     renderDiv.innerHTML = "";
-    FilterApp.allData = [];
     // filterBtn.disabled = true;
 
-    const count = await FilterApp.FilteredData();
+    const { count, allCharacters } = await FilterApp.FilteredData();
     const countPara = document.createElement("p");
     countPara.innerText = `No. of characters: ${count}`;
     const containerDiv = document.createElement("div");
@@ -91,9 +95,6 @@ class FilterApp {
     //   });
     // });
 
-    //flatten allData to get 1 array with all characters
-    const allCharacters = FilterApp.allData.flat();
-
     allCharacters.forEach((character) => {
       let profileCard = document.createElement("div");
       profileCard.classList.add("profile-card");
@@ -106,6 +107,7 @@ class FilterApp {
       let status = document.createElement("p");
 
       image.src = character.image;
+      image.alt = character.name;
       name.innerText = `Name: ${character.name}`;
       gender.innerText = `Gender: ${character.gender}`;
       species.innerText = `Species: ${character.species}`;
