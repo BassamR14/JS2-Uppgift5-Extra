@@ -4,9 +4,13 @@ class FilterApp {
   static allData = [];
 
   static async getData(url) {
-    const response = await fetch(url);
-    const json = response.json();
-    return json;
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    } catch (err) {
+      return err;
+    }
   }
 
   static async FilteredData() {
@@ -22,7 +26,7 @@ class FilterApp {
       params.append("name", name);
     }
 
-    if (gender && gender.value !== "") {
+    if (gender.value !== "") {
       params.append("gender", gender.value);
     }
 
@@ -30,7 +34,7 @@ class FilterApp {
       params.append("species", species);
     }
 
-    if (status && status.value !== "") {
+    if (status.value !== "") {
       params.append("status", status.value);
     }
 
@@ -42,9 +46,9 @@ class FilterApp {
 
     //push all other pages (if they exist) into allData
     if (data.info.pages > 1) {
-      for (let i = 2; i <= data.info.pages; i++) {
+      for (let page = 2; page <= data.info.pages; page++) {
         //when i used append it kept adding the pages parameters instead of replacing it, .set method should be used.
-        params.set("page", i);
+        params.set("page", page);
         const data = await FilterApp.getData(url + params.toString());
         FilterApp.allData.push(data.results);
       }
@@ -59,11 +63,14 @@ class FilterApp {
     //empty everything when button is pressed.
     renderDiv.innerHTML = "";
     FilterApp.allData = [];
+    // filterBtn.disabled = true;
 
     const count = await FilterApp.FilteredData();
     const countPara = document.createElement("p");
-    countPara.innerText = count;
-    renderDiv.append(countPara);
+    countPara.innerText = `No. of characters: ${count}`;
+    const containerDiv = document.createElement("div");
+    containerDiv.classList.add("container");
+    renderDiv.append(countPara, containerDiv);
 
     //allData is an array of arrays. This gives an error that foreach can't be run.
     // this.allData.forEach((dataArr) => {
@@ -86,24 +93,29 @@ class FilterApp {
 
     //flatten allData to get 1 array with all characters
     const allCharacters = FilterApp.allData.flat();
-    console.log(allCharacters);
 
     allCharacters.forEach((character) => {
       let profileCard = document.createElement("div");
       profileCard.classList.add("profile-card");
+      let image = document.createElement("img");
+      image.classList.add("profile-img");
+      image.setAttribute("loading", "lazy");
       let name = document.createElement("p");
       let gender = document.createElement("p");
       let species = document.createElement("p");
       let status = document.createElement("p");
 
-      name.innerText = character.name;
-      gender.innerText = character.gender;
-      species.innerText = character.species;
-      status.innerText = character.status;
+      image.src = character.image;
+      name.innerText = `Name: ${character.name}`;
+      gender.innerText = `Gender: ${character.gender}`;
+      species.innerText = `Species: ${character.species}`;
+      status.innerText = `Status: ${character.status}`;
 
-      profileCard.append(name, gender, species, status);
-      renderDiv.append(profileCard);
+      profileCard.append(image, name, gender, species, status);
+      containerDiv.append(profileCard);
     });
+
+    // filterBtn.disabled = false;
   }
 }
 

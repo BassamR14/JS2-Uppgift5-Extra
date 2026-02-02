@@ -8,53 +8,61 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <label>
-      Name: <input type="text" placeholder="Enter Name" id="name" />
-    </label>
-    <fieldset>
-      <legend>Gender:</legend>
-      <label> <input type="radio" name="Gender" id="" value="" /> Any </label>
+    <div class="form">
       <label>
-        <input type="radio" name="Gender" id="" value="Male" /> Male
+        Name: <input type="text" placeholder="Enter Name" id="name" />
       </label>
-      <label>
-        <input type="radio" name="Gender" id="" value="Female" /> Female
-      </label>
-      <label>
-        <input type="radio" name="Gender" id="" value="Genderless" /> Genderless
-      </label>
-      <label>
-        <input type="radio" name="Gender" id="" value="Unknown" /> Unknown
-      </label>
-    </fieldset>
+      <fieldset>
+        <legend>Gender:</legend>
+        <label>
+          <input type="radio" name="Gender" id="" value="" checked /> Any
+        </label>
+        <label>
+          <input type="radio" name="Gender" id="" value="Male" /> Male
+        </label>
+        <label>
+          <input type="radio" name="Gender" id="" value="Female" /> Female
+        </label>
+        <label>
+          <input type="radio" name="Gender" id="" value="Genderless" />
+          Genderless
+        </label>
+        <label>
+          <input type="radio" name="Gender" id="" value="Unknown" /> Unknown
+        </label>
+      </fieldset>
 
-    <label>
-      Species:
-      <select name="" id="species">
-        <option value="">Any</option>
-        <option value="Human">Human</option>
-        <option value="Alien">Alien</option>
-        <option value="Humanoid">Humanoid</option>
-        <option value="Mythical Creature">Mythical Creature</option>
-        <option value="Animal">Animal</option>
-        <option value="Robot">Robot</option>
-      </select>
-    </label>
+      <label>
+        Species:
+        <select name="" id="species">
+          <option value="">Any</option>
+          <option value="Human">Human</option>
+          <option value="Alien">Alien</option>
+          <option value="Humanoid">Humanoid</option>
+          <option value="Mythical Creature">Mythical Creature</option>
+          <option value="Animal">Animal</option>
+          <option value="Robot">Robot</option>
+        </select>
+      </label>
 
-    <fieldset>
-      <legend>Status:</legend>
-      <label> <input type="radio" name="status" id="" value="" />Any</label>
-      <label>
-        <input type="radio" name="status" id="" value="Alive" />Alive
-      </label>
-      <label>
-        <input type="radio" name="status" id="" value="Dead" />Dead
-      </label>
-      <label>
-        <input type="radio" name="status" id="" value="Unknown" />Unknown
-      </label>
-    </fieldset>
-    <button id="filter-btn">Filter Characters</button>
+      <fieldset>
+        <legend>Status:</legend>
+        <label>
+          <input type="radio" name="status" id="" value="" checked />Any</label
+        >
+        <label>
+          <input type="radio" name="status" id="" value="Alive" />Alive
+        </label>
+        <label>
+          <input type="radio" name="status" id="" value="Dead" />Dead
+        </label>
+        <label>
+          <input type="radio" name="status" id="" value="Unknown" />Unknown
+        </label>
+      </fieldset>
+      <button id="filter-btn">Filter Characters</button>
+    </div>
+
     <hr />
     <div class="filtered-characters"></div>
   </body>
