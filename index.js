@@ -9,7 +9,7 @@ class FilterApp {
       const json = await response.json();
       return json;
     } catch (err) {
-      return err;
+      // console.log(err);
     }
   }
 
@@ -69,55 +69,59 @@ class FilterApp {
     renderDiv.innerHTML = "";
     // filterBtn.disabled = true;
 
-    const { count, allCharacters } = await FilterApp.FilteredData();
-    const countPara = document.createElement("p");
-    countPara.innerText = `No. of characters: ${count}`;
-    const containerDiv = document.createElement("div");
-    containerDiv.classList.add("container");
-    renderDiv.append(countPara, containerDiv);
+    try {
+      const { count, allCharacters } = await FilterApp.FilteredData();
+      const countPara = document.createElement("p");
+      countPara.innerText = `No. of characters: ${count}`;
+      const containerDiv = document.createElement("div");
+      containerDiv.classList.add("container");
+      renderDiv.append(countPara, containerDiv);
 
-    //allData is an array of arrays. This gives an error that foreach can't be run.
-    // this.allData.forEach((dataArr) => {
-    //   dataArr.forEach((data) => {
-    //     let profileCard = document.createElement("div");
-    //     let name = document.createElement("p");
-    //     let gender = document.createElement("p");
-    //     let species = document.createElement("p");
-    //     let status = document.createElement("p");
+      // allData is an array of arrays. Gave an error that foreach can't be run because I used this.allData instead of filterApp.allData.
+      // FilterApp.allData.forEach((dataArr) => {
+      //   dataArr.forEach((data) => {
+      //     let profileCard = document.createElement("div");
+      //     let name = document.createElement("p");
+      //     let gender = document.createElement("p");
+      //     let species = document.createElement("p");
+      //     let status = document.createElement("p");
 
-    //     name.innerText = data.name;
-    //     gender.innerText = data.gender;
-    //     species.innerText = data.species;
-    //     status.innerText = data.status;
+      //     name.innerText = data.name;
+      //     gender.innerText = data.gender;
+      //     species.innerText = data.species;
+      //     status.innerText = data.status;
 
-    //     profileCard.append(name, gender, species, status);
-    //     renderDiv.append(count, profileCard);
-    //   });
-    // });
+      //     profileCard.append(name, gender, species, status);
+      //     renderDiv.append(count, profileCard);
+      //   });
+      // });
 
-    allCharacters.forEach((character) => {
-      let profileCard = document.createElement("div");
-      profileCard.classList.add("profile-card");
-      let image = document.createElement("img");
-      image.classList.add("profile-img");
-      image.setAttribute("loading", "lazy");
-      let name = document.createElement("p");
-      let gender = document.createElement("p");
-      let species = document.createElement("p");
-      let status = document.createElement("p");
+      allCharacters.forEach((character) => {
+        let profileCard = document.createElement("div");
+        profileCard.classList.add("profile-card");
+        let image = document.createElement("img");
+        image.classList.add("profile-img");
+        image.setAttribute("loading", "lazy");
+        let name = document.createElement("p");
+        let gender = document.createElement("p");
+        let species = document.createElement("p");
+        let status = document.createElement("p");
 
-      image.src = character.image;
-      image.alt = character.name;
-      name.innerText = `Name: ${character.name}`;
-      gender.innerText = `Gender: ${character.gender}`;
-      species.innerText = `Species: ${character.species}`;
-      status.innerText = `Status: ${character.status}`;
+        image.src = character.image;
+        image.alt = character.name;
+        name.innerText = `Name: ${character.name}`;
+        gender.innerText = `Gender: ${character.gender}`;
+        species.innerText = `Species: ${character.species}`;
+        status.innerText = `Status: ${character.status}`;
 
-      profileCard.append(image, name, gender, species, status);
-      containerDiv.append(profileCard);
-    });
+        profileCard.append(image, name, gender, species, status);
+        containerDiv.append(profileCard);
+      });
 
-    // filterBtn.disabled = false;
+      // filterBtn.disabled = false;
+    } catch (err) {
+      console.log("Error", err);
+    }
   }
 }
 
